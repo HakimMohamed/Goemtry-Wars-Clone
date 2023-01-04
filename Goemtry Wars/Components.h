@@ -6,6 +6,7 @@ struct CTransform
 {
 	Vector2 pos = { 0.0,0.0 };
 	Vector2 vel = { 0.0,0.0 };
+	float  angle = 0;
 
 	CTransform(){}
 
@@ -15,36 +16,72 @@ struct CTransform
 	}
 };
 
-struct CName
-{
-public:
-
-	std::string name;
-
-	CName(){}
-
-	CName(const std::string &n) 
-		:name(n)
-	{}
-
-
-};
-
 struct CShape
 {
 	sf::CircleShape shape;
 
-	CShape(){}
 
-	CShape(const float & size,const sf::Color & color) 
+
+	CShape(float radius, int points, const sf::Color& fill, const sf::Color &outline, float thickness)
+		:shape(radius,points)
 	{
-		shape.setRadius(size);
-		shape.setFillColor(color);
+		shape.setFillColor(fill);
+		shape.setOutlineColor(outline);
+		shape.setOutlineThickness(thickness);
+		shape.setOrigin(radius, radius);
 	}
 
 };
+
+
+
+
 
 struct CBBOX
 {
 
 };
+
+struct CCollision
+{
+
+	float radius = 0;
+	 CCollision(float r)
+		 :radius(r)
+	 {}
+
+};
+
+struct CScore
+{
+public:
+	int score = 0;
+	CScore (int s)
+		: score(s) {}
+};
+
+struct CInput
+{
+	bool up = false;
+	bool left = false;
+	bool right = false;
+	bool down = false;
+	bool shoot = false; 
+
+	CInput() {};
+};
+
+struct CLifeSpan
+{
+public:
+
+	int remaining = 0;
+	int total	  = 0;
+
+	CLifeSpan(int total)
+		:remaining(total),total(total)
+	{}
+
+
+};
+
