@@ -25,24 +25,23 @@ EntityVec& EntityManager::getEntities(const std::string& tag)
 }
 
 
+
+
 void EntityManager::removeDeadEntities(EntityVec& vec)
 {
-
-	for (auto& e : vec)
-	{
-		std::remove_if(m_entities.begin(), m_entities.end(), e->m_alive);
-	}
+	
+	
 }
 
 void EntityManager::update()
 {
+
 	for (auto& e : m_toAdd)
 	{
 		m_entities.push_back(e);
 		m_entitiesMap[e->m_tag].push_back(e);
 	}
 
-	removeDeadEntities(m_entities);
 
 	// map
 

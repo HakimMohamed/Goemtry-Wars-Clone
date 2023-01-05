@@ -1,11 +1,15 @@
 #pragma once
 #include"Components.h"
+#include<memory>
+
 class Entity
 {
-	const size_t m_id = 0;
-	std::string m_tag = "Default";
-	bool m_alive = true;
 	friend class EntityManager;
+
+	const size_t m_id = 0;
+	std::string m_tag = "default";
+	bool m_alive = true;
+	Entity(const std::string& tag, const size_t id);
 
 public:
 	std::shared_ptr<CTransform> cTransform;
@@ -17,7 +21,6 @@ public:
 
 	Entity();
 
-	Entity(const std::string &tag,const size_t id);
 
 	bool isActive() const;
 	const std::string& tag() const;

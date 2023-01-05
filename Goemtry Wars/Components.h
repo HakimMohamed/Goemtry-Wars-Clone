@@ -1,7 +1,7 @@
 #pragma once
 #include"Vector2.h"
 #include<SFML/Graphics.hpp>
-
+#include"Entity.h"
 struct CTransform
 {
 	Vector2 pos = { 0.0,0.0 };
@@ -20,8 +20,6 @@ struct CShape
 {
 	sf::CircleShape shape;
 
-
-
 	CShape(float radius, int points, const sf::Color& fill, const sf::Color &outline, float thickness)
 		:shape(radius,points)
 	{
@@ -35,13 +33,6 @@ struct CShape
 
 
 
-
-
-struct CBBOX
-{
-
-};
-
 struct CCollision
 {
 
@@ -54,7 +45,6 @@ struct CCollision
 
 struct CScore
 {
-public:
 	int score = 0;
 	CScore (int s)
 		: score(s) {}
