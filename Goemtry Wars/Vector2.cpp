@@ -105,8 +105,11 @@ Vector2& Vector2::scale(float scaler)
 
 Vector2& Vector2::normalized()
 {
-	x = x / this->getLength();
-	y = y / this->getLength();
+	
+	
+	x = x / magnitude;
+	y = y / magnitude;
+
 	return *this;
 }
 
@@ -120,8 +123,8 @@ void Vector2::add(const Vector2& v)
 
 void Vector2::normalize()
 {
-	x = x / this->getLength();
-	y = y / this->getLength();
+	x = x / magnitude;
+	y = y / magnitude;
 }
 
 

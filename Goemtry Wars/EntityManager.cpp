@@ -29,8 +29,11 @@ EntityVec& EntityManager::getEntities(const std::string& tag)
 
 void EntityManager::removeDeadEntities(EntityVec& vec)
 {
-	
-	
+	/*for (auto e : vec) 
+	{
+		EntityVec::iterator it;
+		it = remove_if(vec.begin(), vec.end(),e->isActive() );
+	}*/
 }
 
 void EntityManager::update()

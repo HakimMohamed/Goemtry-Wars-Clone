@@ -3,7 +3,6 @@
 #include"EntityManager.h"
 #include<SFML/Graphics.hpp>
 #include<fstream>
-
 struct PlayerConfig { int SR, CR, FR, FG, FB, OR, OG, OB, OT, V; float S; };
 struct EnemyConfig { int SR, CR, OR, OG, OB, OT, VMIN, VMAX, L, SI; float SMIN; };
 struct BulletConfig { int SR, CR, FR, FG, FB, OR, OG, OB, OT, V, L; float S; };
@@ -23,6 +22,8 @@ class Game
 	int m_lastEnemySpawnTime = 0;
 	bool m_paused = false;
 	bool m_running = true;
+
+	float m_bulletVel=8;
 
 	std::shared_ptr<Entity> m_player;
 

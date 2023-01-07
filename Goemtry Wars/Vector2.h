@@ -13,6 +13,7 @@ public:
 	float x = 0;
 	float y = 0;
 
+	float magnitude = sqrtf((x * x) + (y * y));
 	Vector2() {}
 	Vector2(float p_x, float p_y);
 

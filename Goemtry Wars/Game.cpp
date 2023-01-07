@@ -1,4 +1,5 @@
 #include "Game.h"
+#include<SFML/Graphics.hpp>
 
 Game::Game(const std::string& config)
 {
@@ -69,7 +70,13 @@ void Game::spawnEnemy()
 
 void Game::sEnemySpawner()
 {
-    spawnEnemy();
+    // time
+
+    if (m_currentFrame % 300==0)
+    {
+        std::cout << "enemy spawned";
+        spawnEnemy();
+    }
 }
 
 void Game::sMovement()
@@ -109,6 +116,64 @@ void Game::sMovement()
     
 }
 
+
+void Game::sLifespan()
+{
+}
+
+void Game::sRender()
+{
+    m_window.clear();
+ 
+    for (auto& e : m_entites.getEntities())
+    {
+        e->cShape->shape.setPosition(e->cTransform->pos.x, e->cTransform->pos.y);
+        e->cTransform->angle += 1.0f;
+        e->cShape->shape.setRotation(e->cTransform->angle);
+
+        m_window.draw(e->cShape->shape);
+
+    }
+
+    m_window.display();
+}
+
+void Game::sCollision()
+{
+
+    for (auto& b : m_entites.getEntities("bullet"))
+    {
+        for (auto& e : m_entites.getEntities("enemy"))
+        {
+            //collision radius
+        }
+    }
+}
+
+void Game::spawnSmallEnemies(std::shared_ptr<Entity> entity)
+{
+
+}
+
+void Game::spawnBullet(std::shared_ptr<Entity> entity,const Vector2& mousePos)
+{
+    auto bullet = m_entites.addEntity("bullet");
+
+    auto playerPos = entity->cTransform->pos;
+    auto dirOfBullet = (mousePos - playerPos).normalized();
+    
+
+    bullet->cTransform = std::make_shared<CTransform>(playerPos, dirOfBullet*m_bulletVel);
+    bullet->cShape = std::make_shared<CShape>(10,8,sf::Color::White,sf::Color::Red,2);
+
+
+
+}
+
+void Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity)
+{
+}
+
 void Game::sUserInput()
 {
 
@@ -143,7 +208,7 @@ void Game::sUserInput()
                 std::cout << "D key pressed\n";
                 m_player->cInput->right = true;
                 break;
-            default: 
+            default:
                 break;
             }
         }
@@ -177,54 +242,23 @@ void Game::sUserInput()
             }
         }
 
+        if (event.type == sf::Event::MouseButtonPressed)
+        {
+            if (event.mouseButton.button == sf::Mouse::Left)
+            {
+                //std::cout << "Left mouse at pos (" << event.mouseButton.x
+                   // << "," << event.mouseButton.x << ")\n";
+
+                spawnBullet(m_player, Vector2(event.mouseButton.x, event.mouseButton.y));
+            }
+
+            if (event.mouseButton.button == sf::Mouse::Right)
+            {
+                //std::cout << "Right mouse at pos (" << event.mouseButton.x << "," << event.mouseButton.x << ")\n";
+            }
+        }
     }
 }
-
-void Game::sLifespan()
-{
-}
-
-void Game::sRender()
-{
-    m_window.clear();
- 
-    for (auto& e : m_entites.getEntities())
-    {
-        e->cShape->shape.setPosition(e->cTransform->pos.x, e->cTransform->pos.y);
-        e->cTransform->angle += 1.0f;
-        e->cShape->shape.setRotation(e->cTransform->angle);
-
-        m_window.draw(e->cShape->shape);
-
-    }
-
-    m_window.display();
-}
-
-
-
-void Game::sCollision()
-{
-}
-
-
-
-
-
-void Game::spawnSmallEnemies(std::shared_ptr<Entity> entity)
-{
-    auto bullet = m_entites.addEntity("bullet");
-
-}
-
-void Game::spawnBullet(std::shared_ptr<Entity> entity, const Vector2& mousePos)
-{
-}
-
-void Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity)
-{
-}
-
 
 
 
